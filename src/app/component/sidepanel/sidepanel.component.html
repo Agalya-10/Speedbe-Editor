@@ -1,0 +1,618 @@
+<div class="sidepanel">
+    <div style="width: 100%;">
+        <i class="material-icons toggle-icon text-dark " style="font-size: 1.9rem;"
+            (click)="Sidebarpanel()">keyboard_double_arrow_left</i>
+        <!-- Layout-->
+        <div class="lay" *ngIf="defaultinfo">
+            <div class="layout" *ngIf="!isCollapsed" [ngClass]="{'content': iscontent}">
+                <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
+                    <div class="layouthead">Layout</div>
+                    <button class="plus" type="submit" (click)="contentexpand()">+</button>
+                </div>
+                <div class="line" *ngIf="!iscontent"></div>
+                <div class="px-3 py-2" *ngIf="!iscontent">
+                    <div class="d-flex" style="justify-content: space-between;">
+                        <div>
+                            <label class="numOfPages">No.of pages</label>
+                            <input class="input1" readonly>
+
+
+                        </div>
+                        <div>
+                            <select class="select" [(ngModel)]="selectedUnit">
+                                <option>mm</option>
+                                <option>px</option>
+                                <option>pt</option>
+                                <option>cm</option>
+                                <option>inch</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex" style="justify-content: space-between;">
+                        <div class="">
+                            <label class="numOfPages">Trim Size</label>
+                            <input class="input3" readonly [ngModel]="trimSize">
+
+                        </div>
+                        <div>
+                            <label class="gutterspace" style="">Gutter Space</label>
+                            <input class="input2" readonly [ngModel]="gutterSize">
+                        </div>
+                    </div>
+                    <div class="d-flex" style="justify-content: space-between;">
+                        <div class="">
+                            <label class="numOfPages">Text size</label>
+                            <input class="input2" readonly [ngModel]="textSize">
+                        </div>
+                        <div>
+                            <label class="gutterspace">Column size</label>
+                            <input class="input2" readonly [ngModel]="columnSize">
+                        </div>
+                    </div>
+                    <div class="margin mb-2">Margins</div>
+                    <div class="d-flex">
+                        <div class="">
+                            <label class="bottom">Top</label>
+                            <input class="input2" readonly [ngModel]="topMargin">
+                        </div>
+                        <div class="">
+                            <label class="left">Left</label>
+                            <input class="input2" readonly [ngModel]="leftMargin">
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="">
+                            <label class="bottom">Bottom</label>
+                            <input class="input2" readonly [ngModel]="bottomMargin">
+                        </div>
+                        <div>
+                            <label class="left" style="">Right</label>
+                            <input class="input2" readonly [ngModel]="rightMargin">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- THIRD PAGE -->
+        <div class="sidemenu" *ngIf="!isCollapsed && !defaultinfo">
+            <div class="style1">
+                <div class="style" [ngClass]="{'third': stylecontent}">
+                    <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
+                        <div class="layouthead">Style</div>
+                        <button class="plus" (click)="contentexpand1()">+</button>
+                    </div>
+                    <div class="line" *ngIf="!stylecontent"></div>
+                    <div class="d-flex px-3" *ngIf="!stylecontent ">
+                        <div class=" ">
+                            <label class="font">Font</label>
+                            <input class="fontinput ms-2">
+                        </div>
+                        <div class="">
+                            <label class="size ms-2">Size</label>
+                            <input class="input2 ms-2 ">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="edit pb-3" [ngClass]="{'four': editcontent}">
+                    <div class="d-flex px-3"
+                        style="justify-content: space-between;height: 30px; border-bottom: 2px solid #D0D0D0;">
+                        <div class="layouthead ">Edit</div>
+                        <div style="gap: 30px;display: flex;">
+                            <button type="submit" class="wordpara" (click)="word()"
+                                [ngClass]="{'menucolor': view==='word'}">Word</button>
+                            <button class="linepara" (click)="line()"
+                                [ngClass]="{'menucolor': view==='line'}">Line</button>
+                            <button class="linepara me-2" (click)="para()"
+                                [ngClass]="{'menucolor': view==='para'}">Para</button>
+                            <button class="linepara me-4" (click)="list()"
+                                [ngClass]="{'menucolor': view==='list'}">List</button>
+                        </div>
+                        <button class="plus" (click)="contentexpand2()">+</button>
+                    </div>
+                    <div class=" px-3" *ngIf="view === 'default'&& !editcontent">
+                        <div class="d-flex">
+                            <label class="formatting">Formatting</label>
+                            <div class="d-flex ms-4  icons" style="gap: 11px;">
+                                <i class="material-icons icon1  mt-1">format_italic</i>
+                                <i class="material-icons icon1  mt-1">format_bold</i>
+                                <i class="material-icons icon1  mt-1">format_underlined</i>
+                                <i class="material-icons icon1  mt-1">format_strikethrough</i>
+                                <i class="material-icons icon1  mt-1">subscript</i>
+                                <i class="material-icons icon1  mt-1">superscript</i>
+                                <i class="icon2 ">a</i>
+                            </div>
+                        </div>
+                        <div class="">
+                            <label class="hypen">Hyphenation</label>
+                            <input class="hypinput ms-4">
+                        </div>
+                    </div>
+
+
+                    <div class=" px-3" *ngIf="view === 'word'&& !editcontent">
+                        <div class="d-flex">
+                            <label class="formatting">Formatting</label>
+                            <div class="d-flex ms-4 " style="gap: 11px;">
+                                <button class="material-icons icon1 mt-1" (click)="applyItalic()">format_italic</button>
+                                <button class="material-icons icon1  mt-1" (click)="applyBold()">format_bold</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applyUnderline()">format_underlined</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applyStrikethrough()">format_strikethrough</button>
+                                <button class="material-icons icon1  mt-1" (click)="applySubscript()">subscript</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applySuperscript()">superscript</button>
+                                <button class="icon2" (click)="applyLowercase()">a</button>
+                            </div>
+                        </div>
+                        <div class="">
+                            <label class="hypen">Hyphenation</label>
+                            <input class="hypinput ms-4" [value]="hyphenationValue">
+                        </div>
+                        <div class="d-flex flex-wrap mt-2">
+
+                            <div class="me-5" *ngFor="let option of hyphenationOptions; let i = index">
+                                <div *ngIf="issresult">
+
+                                    <input type="radio" class="radio" name="hyphenSelect" [value]="option"
+                                        (change)="selectHyphen(option)"
+                                        (click)="check(option);onHyphenOptionClick(option)">
+                                    <label class="radiolabel ms-1">{{ option }}</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- <div class="d-flex">
+                            <div class="">
+                                <div class="">
+                                    <input type="radio" class="radio">
+                                    <label class="radiolabel ms-1">No break</label>
+                                </div>
+                                <div>
+                                    <input type="radio" class="radio">
+                                    <label class="radiolabel ms-1">Psycho</label>
+                                </div>
+
+                                <div>
+                                    <input type="radio" class="radio">
+                                    <label class="radiolabel ms-1">Psychologi</label>
+                                </div>
+                            </div>
+                            <div class=" ms-5 ps-5">
+                                <div>
+                                    <input type="radio" class="radio">
+                                    <label class="radiolabel ms-1">Psy</label>
+                                </div>
+                                <div>
+                                    <input type="radio" class="radio">
+                                    <label class="radiolabel text-dark ms-1">Psycholog</label>
+                                </div>
+                                <div>
+                                    <input type="radio" class="radio">
+                                    <label class="radiolabel ms-1">Psychological</label>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <div class="px-3" *ngIf="view === 'line'&& !editcontent">
+                        <p style="font-size: 12px; color: #5d5a5a;">Move</p>
+                        <div class="d-flex" style="color: #959595;margin-top: -5px;">
+                            <p style="font-size: 11px;">Line to column</p>
+                            <i class="material-icons "
+                                style="font-size: 12px;margin-left: 68.5px;padding-top: 2px;">arrow_back</i><span
+                                style="font-size: 11px;cursor: pointer;" (click)="onPrevious()">Previous</span>
+                            <div class="d-flex" (click)="onNext()">
+                                <p style="font-size: 11px;margin-left: 2.32rem;cursor: pointer;">Next</p>
+                                <i class="material-icons-outlined "
+                                    style="font-size: 12px;padding-top: 3px;">arrow_forward</i>
+                            </div>
+                        </div>
+                        <div class="d-flex" style="color: #959595; margin-top: -10px;">
+                            <p style="font-size: 11px;">First character to line</p>
+                            <i class="material-icons "
+                                style="font-size: 12px;margin-left: 39px;padding-top: 3px;">arrow_back</i><span class=""
+                                style="font-size: 12px;cursor: pointer;" (click)="previousClick()">Previous</span>
+                        </div>
+                        <div class="d-flex" style="color: #959595; margin-top: -10px;">
+                            <p style="font-size: 11px;">Last character to line</p>
+                            <div class="d-flex">
+                                <p style="font-size: 11px;margin-left: 8.2rem;cursor: pointer;" (click)="nextClick()">
+                                    Next</p>
+                                <i class="material-icons-outlined "
+                                    style="font-size: 12px;padding-top: 3px;">arrow_forward</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-3" *ngIf="view === 'para'&& !editcontent">
+                        <div class="d-flex">
+                            <div class="">
+                                <label style="margin-right: 18px" class="space">Space</label>
+                            </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1">Above</label>
+                                <div class="ms-2">
+                                    <input class="above ms-1">
+                                    <div class="" style="display: flex;position: absolute;bottom:    0px;top: 2px;">
+                                        <button
+                                            style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
+                                            (click)="decreasePt()">-</button>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ abovePt }}
+                                        </div>
+                                        <button class=" ms-2 mt-1"
+                                            style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
+                                            (click)="increasePt()">+</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="d-flex ms-4" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1">Below</label>
+                                <div class="ms-2">
+                                    <input class="above ms-2">
+                                    <div class="ms-2"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decrease()">-</p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;cursor: pointer;">
+                                            {{ belowPt }}</div>
+                                        <p class="ps-2 ms-2 mt-1"
+                                            style="color: #959595;font-size: 12px;cursor: pointer;"
+                                            (click)="increase()">+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex" style="justify-content: space-between;">
+                            <!-- <div>
+                                <label class="movepara">Move para</label>
+                                <select class="select1 ms-4 ">
+                                    <option>To next column</option>
+                                    <option>px</option>
+                                    <option>pt</option>
+                                    <option>cm</option>
+                                    <option>inch</option>
+
+                                </select>
+
+                            </div> -->
+                            <div class="d-flex mt-2" style="color: #959595;">
+                                <label class="movepara">Move para</label>
+                                <div (click)="movePreviousPara()">
+                                    <i class="material-icons "
+                                        style="font-size: 12px;margin-left: 32px;padding-top: 2px;">arrow_back</i><span
+                                        style="font-size: 11px;cursor: pointer;">Previous</span>
+                                </div>
+                                <div class="d-flex mt-2" (click)="moveNextPara()">
+                                    <p style="font-size: 11px;margin-left: 2.32rem;cursor: pointer;">Next</p>
+                                    <i class="material-icons-outlined "
+                                        style="font-size: 12px;padding-top: 3px;">arrow_forward</i>
+                                </div>
+                            </div>
+                            <button style="border: none; background: none;"><span
+                                    class="material-symbols-outlined editicon pt-4"
+                                    (click)="edit()">edit</span></button>
+                        </div>
+
+
+                    </div>
+                    <div class="px-3" *ngIf="view === 'list'&& !editcontent">
+                        <div class="d-flex">
+                            <div class="d-flex" style="position: relative;">
+                                <label class="mt-1 above1 me-4">Indentation</label>
+                                <div class="ms-2">
+                                    <input class="above ms-2">
+                                    <div class="ms-2"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p style="color: #959595;width: 7px; height: 7px;">-</p>
+                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;">+</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex ms-4" style="position: relative;">
+                                <label class="ms-4 ps-4 mt-1 above1">Reset</label>
+                            </div>
+
+
+                        </div>
+                        <div class="d-flex">
+                            <div class="">
+                                <label style="margin-right: 2px" class="space">Space</label>
+                            </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="ms-4 mt-1 above1">Above</label>
+                                <div class="ms-2">
+                                    <input class="above ms-2">
+                                    <div class="ms-2"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p style="color: #959595;width: 7px; height: 7px;">-</p>
+                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;">+</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex ms-4" style="position: relative;">
+                                <label class="ms-3 mt-1 above1">Below</label>
+                                <div class="ms-2">
+                                    <input class="above ms-2">
+                                    <div class="ms-2"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p style="color: #959595;width: 7px; height: 7px;">-</p>
+                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;">+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="px-3" *ngIf="view === 'edit'&& !editcontent">
+                        <div class="d-flex">
+                            <label class="justification">Justification</label>
+                            <div class="d-flex ms-4  mt-1 formaticons" style="gap: 27px;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;"
+                                    (click)="alignLeft()">format_align_left</span>
+                                <span class="material-symbols-outlined" style="font-size: 14px;"
+                                    (click)="alignCenter()">format_align_center</span>
+                                <span class="material-symbols-outlined" style="font-size: 14px;"
+                                    (click)="alignRight()">format_align_right</span>
+                                <span class="material-symbols-outlined" style="font-size: 14px;"
+                                    (click)="alignJustify()">format_align_justify</span>
+                                <!-- <span class="material-symbols-outlined" style="font-size: 14px;"
+                                    (click)="onBulletClick()">format_list_bulleted</span>
+                                <span class="material-symbols-outlined" style="font-size: 14px;"
+                                    (click)="onNumberClick()">format_list_numbered</span> -->
+                            </div>
+                        </div>
+                        <div class="d-flex mt-2">
+                            <div class="">
+                                <label class="space" style="margin-right: 20px">Space</label>
+                            </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1 me-2">Above</label>
+                                <div class="ms-2">
+                                    <input class="above  text-dark ms-3">
+                                    <div class="ms-3"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <button class="me-2"
+                                            style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
+                                            (click)="decreasePt()">-</button>
+                                        <div class="mt-1" style="font-size: 10px;color: #959595;">{{ abovePt }}
+                                        </div>
+                                        <button class="mt-1"
+                                            style="color: #959595;font-size: 12px;border: none;background: none;"
+                                            (click)="increasePt()">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1">Below</label>
+                                <div class="ms-2">
+                                    <input class="above ps-3 text-dark ms-3">
+                                    <div class="ms-3"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decrease()">-</p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;cursor: pointer;">
+                                            {{ belowPt }}</div>
+                                        <p class="ps-2 ms-2 mt-1"
+                                            style="color: #959595;font-size: 12px;cursor: pointer;"
+                                            (click)="increase()">+</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="d-flex mt-2">
+                            <label class="formatting">Formatting</label>
+                            <div class="d-flex ms-4 " style="gap: 6px;">
+                                <button class="material-icons icon1 mt-1" (click)="applyItalic()">format_italic</button>
+                                <button class="material-icons icon1  mt-1" (click)="applyBold()">format_bold</button>
+                                <button class="material-icons icon1  mt-1"(click)="applyUnderline()">format_underlined</button>
+                                <button class="material-icons icon1  mt-1"(click)="applyStrikethrough()">format_strikethrough</button>
+                                <button class="material-icons icon1  mt-1"(click)="applySubscript()">subscript</button>
+                                <button class="material-icons icon1  mt-1"(click)="applySuperscript()">superscript</button>
+                                <button class="icon2"(click)="applyLowercase()">a</button>
+                            </div>
+                        </div>
+                        <div class="d-flex my-3 ">
+                            <div class="d-flex" style="position: relative;margin-left: 4.65rem;">
+                                <label class=" ps-2 mt-1 kerning">Kerning</label>
+                                <div class="ms-2">
+                                    <input class="above ps-2 text-dark me-1 text-secondary" style="margin-left: 18px;"
+                                        [value]="letterSpacing + 'pt'" readonly>
+                                    <div
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p class="ms-3" style="color: #959595;width: 7px; height: 7px;"
+                                            (click)="decreaseLetterSpace()">-</p>
+                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;"
+                                            (click)="increaseLetterSpace()">+</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="ms-3 mt-1 Tracking ">Tracking</label>
+                                <div class="ms-2 ps-2">
+                                    <input class="above ps-3 text-dark" style="margin-left: 3.5px;"
+                                        [value]="trackingValue +'pt'">
+                                    <div
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p class="ms-2" style="color: #959595;width: 7px; height: 7px;"
+                                            (click)="moveDown()">-</p>
+                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;"
+                                            (click)="moveUp()">+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex " style="color: #959595;">
+                            <label class="movepara">Move para</label>
+                            <div (click)="movePreviousPara()">
+                                <i class="material-icons "
+                                    style="font-size: 12px;margin-left: 32px;padding-top: 2px;">arrow_back</i><span
+                                    style="font-size: 11px;cursor: pointer;">Previous</span>
+                            </div>
+                            <div class="d-flex mt-2" (click)="moveNextPara()">
+                                <p style="font-size: 11px;margin-left: 2.32rem;cursor: pointer;">Next</p>
+                                <i class="material-icons-outlined "
+                                    style="font-size: 12px;padding-top: 3px;">arrow_forward</i>
+                            </div>
+                        </div>
+                        <div class="d-flex" style="color: #959595;">
+                            <label class="movepara">Merge</label>
+                            <div (click)="movePreviousPara()">
+                                <i class="material-icons "
+                                    style="font-size: 12px;margin-left: 32px;padding-top: 2px;">arrow_back</i><span
+                                    style="font-size: 11px;cursor: pointer;">Previous</span>
+                            </div>
+                            <div class="d-flex mt-2" (click)="moveNextPara()">
+                                <p style="font-size: 11px;margin-left: 2.32rem;cursor: pointer;">Next</p>
+                                <i class="material-icons-outlined "
+                                    style="font-size: 12px;padding-top: 3px;">arrow_forward</i>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-5">
+                            <div class="d-flex">
+                                <div class="">
+                                    <label style="margin-right: 18px" class="indentation">Indentation</label>
+                                </div>
+                                <div class="d-flex" style="position: relative;">
+                                    <div class="ms-2">
+                                        <input class="above ps-2 text-dark " [value]="indentValue + 'pt'"
+                                            (input)="onIndentInput($event)">
+                                        <div
+                                            style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                            <p style="color: #959595;width: 7px; height: 7px;cursor: pointer;"
+                                                (click)="decreaseIndent()">-</p>
+                                            <p class="ps-4 ms-2 mt-1"
+                                                style="color: #959595;font-size: 12px;cursor: pointer;"
+                                                (click)="increaseIndent()">+</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="">
+                                    <label style="" class="indentation">Font Size</label>
+                                </div>
+                                <div class="d-flex" style="position: relative;"  >
+                                    <div class="ms-2">
+                                        <input class="above ps-2 text-dark " [value]="fontSizeValue + 'pt'">
+                                        <div
+                                            style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                            <p style="color: #959595;width: 7px; height: 7px;cursor: pointer;"
+                                                (click)="fontDecrease()">-</p>
+                                            <p class="ps-4 ms-2 mt-1"
+                                                style="color: #959595;font-size: 12px;cursor: pointer;"
+                                                (click)="fontIncrease()">+</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <label style="" class="deletepara" (click)="deletePara()">Delete Para</label>
+                        </div>
+                        <div class="d-flex" style="justify-content: end;">
+                            <button style="border: none;background: none;"><span class="material-symbols-outlined"
+                                    style="color:#0F50A6;font-size: 24px;">save</span></button>
+                            <button style="border: none;background: none;"><span
+                                    class="material-symbols-outlined circleicon text-danger"
+                                    style="font-size: 24px;">x_circle</span></button>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="float">
+                    <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
+                        <div class="layouthead">Float</div>
+                        <div class="plus">+</div>
+                    </div>
+                </div>
+                <div class="autopaginate" [ngClass]="{'five': autopaginate}">
+                    <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
+                        <div class="layouthead">AutoPaginate</div>
+                        <div class="plus" (click)="AutopaginatePlus()">+</div>
+                    </div>
+                    <div class="line" *ngIf="!autopaginate"></div>
+                    <div class="d-flex px-3 gap-4" *ngIf="!autopaginate">
+                        <div>
+                            <label class="Reflow me-3">Reflow</label>
+                            <select class="select2 ">
+                                <option>Page 1</option>
+                                <option>Page 2</option>
+                                <option>Page 3</option>
+                                <option>Page 4</option>
+                                <option>Page 5</option>
+
+                            </select>
+
+                        </div>
+                        <div>
+                            <label class="repaginate me-2">Repaginate</label>
+                            <select class="select2">
+                                <option>Page 1</option>
+                                <option>Page 2</option>
+                                <option>Page 3</option>
+                                <option>Page 4</option>
+                                <option>Page 5</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="maininsert" [ngClass]="{'five': minas}" *ngIf="!minas">
+                    <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
+                        <div class="insert">Insert Symbols</div>
+                        <div class="minas" (click)="Insertminas()">-</div>
+                    </div>
+                    <div class="line"></div>
+                    <div class=" px-3">
+                        <div class="d-flex mt-1">
+                            <div class="math">Mathematical Operators</div>
+                            <div class="arrow" (click)="arrow()" [ngClass]="{'clickarrow':arrowshow}">Arrows</div>
+                            <div class="splchar">Special characters</div>
+                        </div>
+                        <div class="d-flex mt-2 mb-2">
+                            <div class="greek">Greek characters</div>
+                            <div class="space">Spaces</div>
+                        </div>
+                    </div>
+                    <div class="d-flex px-3 mb-2" style="gap: 43px;" *ngIf="arrowshow">
+                        <span class="material-symbols-outlined" id="arrowicons">
+                            arrow_left_alt
+                        </span>
+                        <span class="material-symbols-outlined" id="arrowicons">
+                            arrow_upward_alt
+                        </span>
+                        <span class="material-symbols-outlined" id="arrowicons">
+                            arrow_right_alt
+                        </span>
+                        <span class="material-symbols-outlined" id="arrowicons">
+                            arrow_downward_alt
+                        </span>
+                        <span class="material-symbols-outlined" id="arrowicon1">
+                            arrow_range
+                        </span>
+                        <span class="material-symbols-outlined" style="transform: rotate(90deg);" id="arrowicon2">
+                            arrow_range
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

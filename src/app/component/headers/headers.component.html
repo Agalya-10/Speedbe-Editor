@@ -1,0 +1,67 @@
+<!-- <div class="mainContainer">
+    <div class="headermainclass">
+        <div style="margin-left: 91px;">
+            <img src="../../../assets/editorlogo.png" alt="">
+        </div>
+        <div class="commonClass">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+            <div class="content">Home</div>
+        </div>
+        <div class="commonClass" (click)="info()" [ngClass]="{'info': menu}">
+            <span class="material-symbols-outlined" >
+                info
+            </span>
+            <div class="content">info</div>
+        </div>
+        <div style="margin-left: 50vw;" class="commonClass">
+            <span class="material-symbols-outlined">
+                save
+            </span>
+            <div class="content">Save</div>
+        </div>
+        <div class="commonClass">
+            <span class="material-symbols-outlined">
+                picture_as_pdf
+            </span>
+            <div class="content">Create PDF</div>
+        </div>
+
+        <div class="commonClass">
+            <span class="material-symbols-outlined">
+                download
+            </span>
+            <div class="content">Download</div>
+        </div>
+        <div class="commonClass">
+            <span class="material-symbols-outlined">
+                logout
+            </span>
+            <div class="content">Logout</div>
+        </div>
+    </div>
+</div> -->
+
+<div class="main">
+    <div class="main_1">
+        <img src="assets/editorlogo.png" alt="" class="logoo">
+        <div class="icon_1">
+            <div class="icon"><span class="material-symbols-outlined">home</span>Home
+
+            </div>
+            <div class="infoicon" [ngClass]="{'info':info }">
+                <div class="icon">
+                    <span class="material-symbols-outlined" (click)="info()">info</span>Info
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main_2">
+        <button class="icon"> <span class="material-symbols-outlined">save</span>Save</button>
+        <button class="icon"> <span class="material-symbols-outlined">picture_as_pdf</span>Create PDF</button>
+        <button class="icon"> <span class="material-symbols-outlined"
+                (click)="download()">download</span>download</button>
+        <button class="icon"> <span class="material-symbols-outlined">logout</span>Logout</button>
+    </div>
+</div>

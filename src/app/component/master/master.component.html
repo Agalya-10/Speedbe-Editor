@@ -1,0 +1,17 @@
+<div class="master">
+    <app-headers class="header"></app-headers>
+
+    <div class="main " [ngClass]="{'toolbar-collapsed': isCollapsed}">
+
+        <app-toolbar class="toolbar" ></app-toolbar>
+        <div class="editorcontainer">
+            <div class="content">
+                <div id="editor-container" class="editor">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <app-sidepanel class="sidebar" [ngClass]="{'sidepanel-collapsed': isCollapsed}"></app-sidepanel>
+
+</div>

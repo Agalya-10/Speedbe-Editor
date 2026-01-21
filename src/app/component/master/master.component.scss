@@ -1,0 +1,54 @@
+.main{
+    position: relative;
+    overflow: hidden;
+    width: 78%;
+    height: 1000px;
+    background-color: #DDDDDD;
+}
+.toolbar{
+      position: absolute;
+      top: 50px;
+      left: 0;
+      z-index: 10;
+}
+
+.sidebar{
+    width: 22%;
+    position: absolute;
+    right: 0;
+    top: 80px;
+}
+.content{
+     height: 1000px;
+     z-index: 1;
+     margin-top: 50px;
+}
+.editorcontainer{
+    overflow: auto;
+    scrollbar-width: none;
+
+}
+.sidepanel-collapsed{
+    width: 2%;
+    
+}
+.toolbar-collapsed{
+    width: 100%;
+}
+.word {
+  cursor: pointer;
+}
+
+// .word.highlight {
+//   background-color: yellow;
+//   color: black;            
+//   font-weight: bold;       
+// }
+
+
+
+
+word {
+  display: inline-block;
+  margin-right: 8px;   /* 👈 idhu thaan word space */
+}

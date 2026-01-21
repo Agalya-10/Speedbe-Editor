@@ -1,0 +1,128 @@
+<div class="tool d-flex" [ngClass]="{'sidepanel-collapse': isCollapse}">
+    <div>
+        <div class="head"></div>
+        <div class="toolbar">
+
+            <button class="main1" (mouseenter)="toggleSidebar()"
+                [ngClass]="{'collapsed': isCollapsed}" *ngIf="word" (click)="wordclick();">
+                <div class="mainletter">W</div>
+                <div class="mini">Word</div>
+            </button>
+            <button class="main1" (mouseenter)="toggleSidebar()" 
+                [ngClass]="{'collapsed': isCollapsed}" *ngIf="line">
+                <div class="mainletter">L</div>
+                <div class="mini">Line</div>
+            </button>
+            <button class="main1" (mouseenter)="toggleSidebar()" 
+                [ngClass]="{'collapsed': isCollapsed}" *ngIf="para">
+                <div class="mainletter">P</div>
+                <div class="mini">Para</div>
+            </button>
+                <button class="main1" (mouseenter)="toggleSidebar()" 
+                [ngClass]="{'collapsed': isCollapsed}" *ngIf="list">
+                <div class="mainletter">L</div>
+                <div class="mini">List</div>
+            </button>
+
+            <div>
+                <button class="main ">
+                    <div class="mainletter">F</div>
+                    <div class="mini">Float</div>
+                </button>
+            </div>
+            <button class="main" (click)="Paginate()" [ngClass]="{'pagi':!paginateshow}">
+                <i class="material-icons-outlined icon " style="font-size: 15px;">content_copy</i>
+                <div class="mini1 ">Auto Paginate</div>
+            </button>
+
+            <button class="main2 " (click)="singleSidebar()" [ngClass]="{'collapsed': Collapsed}">
+                <img src="/assets/Single.svg" alt="zoom100" style="width: 20px; height: 23px;" />
+                <div class="mini">Single</div>
+            </button>
+
+            <button class="main" (click)="insertIcon()">
+                <i class="material-symbols-outlined" style="font-size: 18px;">special_character</i>
+                <div class="mini">Insert</div>
+            </button>
+
+            <button class="main2 " (click)="zoomSidebar()" [ngClass]="{'collapsed': zoomout}">
+                <i class="material-icons-outlined" style="font-size: 18px;">zoom_out</i>
+                <div class="mini3">Zoom Out</div>
+            </button>
+
+            <button class="main ">
+                <i class="material-symbols-outlined" style="font-size: 18px;">grid_on</i>
+                <div class="mini">Guides</div>
+            </button>
+            <i class="material-symbols-outlined arrow3">arrow_drop_down</i>
+            <i class="material-symbols-outlined arrow2">arrow_drop_down</i>
+            <i class="material-symbols-outlined arrow1">arrow_drop_down</i>
+            <div class="word1" *ngIf="isCollapsed">
+                <button class="main ms-1" *ngIf="!word " (click)="wordclick();click('word')" >
+                    <div class="mainletter">W</div>
+                    <div class="mini">Word</div>
+                </button>
+                <button class="main ms-1" (click)="lineclick();click('line')" *ngIf="!line">
+                    <div class="mainletter">L</div>
+                    <div class="mini">Line</div>
+                </button>
+                <button class="main ms-1" *ngIf="!para" (click)="paraclick();click('para')">
+                    <div class="mainletter">P</div>
+                    <div class="mini">Para</div>
+                </button>
+                 <button class="main ms-1" *ngIf="!list" (click)="listclick();click('list')">
+                    <div class="mainletter">L</div>
+                    <div class="mini">List</div>
+                </button>
+
+            </div>
+            <div class="word2">
+                <button class="main ms-1" *ngIf="Collapsed">
+                    <img src="/assets/Spread.svg" alt="zoom100" style="width: 20px; height: 23px;" />
+                    <div class="mini">Spread</div>
+                </button>
+                <button class="main ms-1" *ngIf="Collapsed">
+                    <img src="/assets/Cover page.svg" alt="zoom100" style="width: 20px; height: 23px;" />
+                    <div class="mini">Cover</div>
+                </button>
+            </div>
+            <div class="word3">
+                <button class="main ms-1" *ngIf="zoomout">
+                    <i class="material-icons-outlined" style="font-size: 18px;">zoom_in</i>
+                    <div class="mini">Zoom in</div>
+                </button>
+                <button class="main ms-1" *ngIf="zoomout">
+                    <i class="material-symbols-outlined" style="font-size:18px;">search</i>
+                    <div class="mini">Default</div>
+                </button>
+                <button class="main ms-1" *ngIf="zoomout">
+                    <img src="/assets/zoom_100.svg" alt="zoom100" style="width: 20px; height: 23px;" />
+                    <div class="mini">100%</div>
+                </button>
+                <button class="main ms-1" *ngIf="zoomout">
+                    <img src="/assets/zoom_200.svg" alt="zoom100" style="width: 20px; height: 23px;" />
+                    <div class="mini">200%</div>
+                </button>
+                <button class="main ms-1" *ngIf="zoomout">
+                    <img src="/assets/Fit to page.svg" alt="zoom100" style="width: 20px; height: 23px;" />
+                    <div class="mini">Cover</div>
+                </button>
+
+            </div>
+
+        </div>
+        <div class="toolbar1 text-center py-2">
+            <i class="material-symbols-outlined" style="font-size:20px; transform: rotate(-90deg);">
+                last_page
+            </i>
+            <div> <i class="material-symbols-outlined" style="font-size:20px;">keyboard_arrow_up</i></div>
+            <button class="button">25</button>
+            <p style="color: #A5A5A5;">60</p>
+            <div> <i class="material-symbols-outlined" style="font-size:20px;">keyboard_arrow_down</i></div>
+            <i class="material-symbols-outlined" style="font-size:20px; transform: rotate(90deg);">
+                last_page
+            </i>
+
+        </div>
+    </div>
+</div>
