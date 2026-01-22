@@ -25,7 +25,6 @@ export class MasterComponent {
   isParaMode: boolean = false;
   selectedPara: HTMLElement | null = null;
   currentpagenumber: number = 0;
-  // private charOffset = 0;
 
   isfirst = true
 
@@ -46,14 +45,12 @@ export class MasterComponent {
     this.listenFirstCharPreviousLine();
     this.listenFontSize();
     this.deletePara();
-    // this.indentationPlusMinas();
   }
 
   ngAfterViewInit() {
     document.addEventListener('click', (e) => {
       if (this.isParaMode) {
         this.selectFullPara(e);
-        // return;
       }
       if (this.isLineMode) {
         this.selectFullLine(e);
@@ -66,8 +63,6 @@ export class MasterComponent {
     this.paraaboove();
     this.parabelow();
     this.ParaMoveAction();
-    this.listenParaAlignment();
-    // this.listenParaList();
     this.listenLetterSpace();
     this.listenWordSpace();
     this.listenIndent();
@@ -272,6 +267,7 @@ export class MasterComponent {
     }
     const selectedWord = this.wordhighlighted(currId);
 
+
     wordElement.setAttribute("data-selected", "true");
 
     const hyWords = document.querySelectorAll(`word[wordid="${currId}"]`);
@@ -279,6 +275,7 @@ export class MasterComponent {
 
     this.fullword = "";
     const parts = selectedWord?.querySelectorAll("w") || [];
+
     parts.forEach(w =>
       this.fullword += w.textContent?.trim() || ""
 
@@ -290,6 +287,7 @@ export class MasterComponent {
     const a = this.hassibling?.(selectedWord!);
     if (a) {
       const hyphenation = selectedWord?.getAttribute('data-hyphenated') || "";
+
       this.service.sendValueFrommastercomponent(hyphenation);
 
       this.service.updateHyphenation({
@@ -940,50 +938,6 @@ export class MasterComponent {
   }
 
   // edit
-
-  listenParaAlignment() {
-    this.service.paraAlign$.subscribe(align => {
-      if (!align) return;
-
-      const para = this.service.getSelectedPara();
-      if (!para) return;
-
-      para.style.textAlign = align;
-
-    });
-  }
-  // listenParaList() {
-  //   this.service.paraList$.subscribe(type => {
-  //     if (!type) return;
-
-  //     const para = this.service.getSelectedPara();
-  //     if (!para) return;
-
-  //     const text = para.innerText.trim();
-
-  //     let listHTML = '';
-
-  //     if (type === 'bullet') {
-  //       listHTML = `
-  //       <ul style="padding-left: 20px; margin: 0;">
-  //         <li>${text}</li>
-  //       </ul>`;
-  //     }
-
-  //     if (type === 'number') {
-  //       listHTML = `
-  //       <ol style="padding-left: 20px; margin: 0;">
-  //         <li>${text}</li>
-  //       </ol>`;
-  //     }
-
-  //     para.innerHTML = listHTML;
-
-
-  //     setTimeout(() => this.pdfmeasure(), 30);
-  //   });
-  // }
-
   listenLetterSpace() {
     this.service.letterPt$.subscribe(value => {
       const para = this.service.getSelectedPara();
@@ -1038,7 +992,6 @@ export class MasterComponent {
         currentPt += 0.1;
       } else {
         currentPt = Math.max(6, currentPt - 0.1);
-        // console.log("Agaluya",currentPt)
       }
       para.style.setProperty(
         'font-size',
@@ -1049,14 +1002,14 @@ export class MasterComponent {
     });
   }
 
-deletePara() {
-  this.service.DeletePara$.subscribe(para => {
-    if (para === null && this.selectedPara) {
-      this.selectedPara.remove(); 
-      this.selectedPara = null;
-    }
-  });
-}
+  deletePara() {
+    this.service.DeletePara$.subscribe(para => {
+      if (para === null && this.selectedPara) {
+        this.selectedPara.remove();
+        this.selectedPara = null;
+      }
+    });
+  }
 
 }
 

@@ -484,30 +484,6 @@ export class SidepanelComponent {
     this.service.movePara('next');
   }
 
-  alignLeft() {
-    this.service.setParaAlignment('left');
-  }
-
-  alignCenter() {
-    this.service.setParaAlignment('center');
-  }
-
-  alignRight() {
-    this.service.setParaAlignment('right');
-  }
-
-  alignJustify() {
-    this.service.setParaAlignment('justify');
-  }
-
-  // onBulletClick() {
-  //   this.service.setParaList('bullet');
-  // }
-
-  // onNumberClick() {
-  //   this.service.setParaList('number');
-  // }
-
   // Kerning
   letterSpacing: number = 0;
 
@@ -614,24 +590,59 @@ export class SidepanelComponent {
     this.service.deletePara(null);
   }
 
-  // getSelectedPara(): HTMLElement | null {
-  //   return document.querySelector('[data-selected="true"]') as HTMLElement;
-  // }
+  applyParaFormat(
+    type: 'bold' | 'italic' | 'underline' | 'strike' | 'sub' | 'super' | 'lower' | 'caps'
+  ) {
+    const para = this.service.getSelectedPara();
+    if (!para) return;
 
-  // applyParaBold() {
-  //   const para = this.getSelectedPara();
-  //   if (!para) return;
-  //   para.style.fontWeight = 'bold';
-  // }
+    switch (type) {
+      case 'bold':
+        para.style.fontWeight =
+          para.style.fontWeight === 'bold' ? 'normal' : 'bold';
+        break;
 
-  // applyparaItalic() {
-  //   const para = document.querySelector('[data-selected="true"]');
-  //   // console.log("aarthi",para)
-  //   if (!para) return;
+      case 'italic':
+        para.style.fontStyle =
+          para.style.fontStyle === 'italic' ? 'normal' : 'italic';
+        break;
 
-  //   para.querySelectorAll('word')
-  //     .forEach(w => (w as HTMLElement).style.fontStyle = 'italic');
-  // }
+      case 'underline':
+        para.style.textDecoration =
+          para.style.textDecoration === 'underline' ? 'none' : 'underline';
+        break;
+
+      case 'strike':
+        para.style.textDecoration =
+          para.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+        break;
+
+      case 'sub':
+        para.style.verticalAlign = 'sub';
+        para.style.fontSize = 'smaller';
+        break;
+
+      case 'super':
+        para.style.verticalAlign = 'super';
+        para.style.fontSize = 'smaller';
+        break;
+      case 'caps':
+        para.innerText = para.innerText.toUpperCase();
+        break;
+
+      case 'lower':
+        para.innerText = para.innerText.toLowerCase();
+        break;
+    }
+  }
+
+  applyParaAlign(type: 'left' | 'center' | 'right' | 'justify') {
+    const para = this.service.getSelectedPara();
+    if (!para) return;
+
+    para.style.setProperty('text-align', type, 'important');
+  }
+
 
 
 }

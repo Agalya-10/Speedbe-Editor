@@ -357,13 +357,13 @@
                             <label class="justification">Justification</label>
                             <div class="d-flex ms-4  mt-1 formaticons" style="gap: 27px;">
                                 <span class="material-symbols-outlined" style="font-size: 14px;"
-                                    (click)="alignLeft()">format_align_left</span>
+                                    (click)="applyParaAlign('left')">format_align_left</span>
                                 <span class="material-symbols-outlined" style="font-size: 14px;"
-                                    (click)="alignCenter()">format_align_center</span>
+                                    (click)="applyParaAlign('center')">format_align_center</span>
                                 <span class="material-symbols-outlined" style="font-size: 14px;"
-                                    (click)="alignRight()">format_align_right</span>
+                                    (click)="applyParaAlign('right')">format_align_right</span>
                                 <span class="material-symbols-outlined" style="font-size: 14px;"
-                                    (click)="alignJustify()">format_align_justify</span>
+                                    (click)="applyParaAlign('justify')">format_align_justify</span>
                                 <!-- <span class="material-symbols-outlined" style="font-size: 14px;"
                                     (click)="onBulletClick()">format_list_bulleted</span>
                                 <span class="material-symbols-outlined" style="font-size: 14px;"
@@ -407,16 +407,23 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="d-flex mt-2">
+                        <div class="d-flex mt-2">
                             <label class="formatting">Formatting</label>
                             <div class="d-flex ms-4 " style="gap: 6px;">
-                                <button class="material-icons icon1 mt-1" (click)="applyItalic()">format_italic</button>
-                                <button class="material-icons icon1  mt-1" (click)="applyBold()">format_bold</button>
-                                <button class="material-icons icon1  mt-1"(click)="applyUnderline()">format_underlined</button>
-                                <button class="material-icons icon1  mt-1"(click)="applyStrikethrough()">format_strikethrough</button>
-                                <button class="material-icons icon1  mt-1"(click)="applySubscript()">subscript</button>
-                                <button class="material-icons icon1  mt-1"(click)="applySuperscript()">superscript</button>
-                                <button class="icon2"(click)="applyLowercase()">a</button>
+                                <button class="material-icons icon1 mt-1"
+                                    (click)="applyParaFormat('italic')">format_italic</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applyParaFormat('bold')">format_bold</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applyParaFormat('underline')">format_underlined</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applyParaFormat('strike')">format_strikethrough</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applyParaFormat('sub')">subscript</button>
+                                <button class="material-icons icon1  mt-1"
+                                    (click)="applyParaFormat('super')">superscript</button>
+                                <button class="icon2" (click)="applyParaFormat('caps')">A</button>
+                                <button class="icon2" (click)="applyParaFormat('lower')">a</button>
                             </div>
                         </div>
                         <div class="d-flex my-3 ">
@@ -500,7 +507,7 @@
                                 <div class="">
                                     <label style="" class="indentation">Font Size</label>
                                 </div>
-                                <div class="d-flex" style="position: relative;"  >
+                                <div class="d-flex" style="position: relative;">
                                     <div class="ms-2">
                                         <input class="above ps-2 text-dark " [value]="fontSizeValue + 'pt'">
                                         <div

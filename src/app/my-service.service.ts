@@ -238,17 +238,7 @@ export class MyServiceService {
   }
 
   // edit
-  // para alignment
-  private paraAlignSource =
-    new BehaviorSubject<'left' | 'center' | 'right' | 'justify' | null>(null);
-
-  paraAlign$ = this.paraAlignSource.asObservable();
-
-  setParaAlignment(
-    align: 'left' | 'center' | 'right' | 'justify'
-  ) {
-    this.paraAlignSource.next(align);
-  }
+ 
   // Indentation
   private indentPtSource = new BehaviorSubject<number>(0);
   indentPt$ = this.indentPtSource.asObservable();
@@ -287,13 +277,26 @@ export class MyServiceService {
   changeFontSize(type: 'increase' | 'decrease') {
     this.fontSize$.next(type);
   }
-// deletepara
-private deletepara = new BehaviorSubject<HTMLElement | null>(null);
-DeletePara$ = this.deletepara.asObservable();
+  // deletepara
+  private deletepara = new BehaviorSubject<HTMLElement | null>(null);
+  DeletePara$ = this.deletepara.asObservable();
 
-deletePara(value: HTMLElement | null) {
-  this.deletepara.next(value);
+  deletePara(value: HTMLElement | null) {
+    this.deletepara.next(value);
+  }
+// Formating para
+getSelectePara(): HTMLElement | null {
+  const selection = window.getSelection();
+  if (!selection || selection.rangeCount === 0) return null;
+
+  let node = selection.anchorNode as Node;
+
+  if (node.nodeType === Node.TEXT_NODE) {
+    node = node.parentElement!;
+  }
+
+    return (node as HTMLElement).closest('p, div');
+
 }
-
 
 }
