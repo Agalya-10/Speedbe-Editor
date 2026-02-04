@@ -159,6 +159,8 @@ export class SidepanelComponent {
   list() {
     this.view = 'list';
     this.editcontent = false;
+    this.service.setListMode(true);
+    this.service.setParaMode(false);
 
   }
   Defaultword() {
@@ -643,6 +645,79 @@ export class SidepanelComponent {
     para.style.setProperty('text-align', type, 'important');
   }
 
+indentValues: number = 6;
 
+applyIndentMove() {
+  const para = this.service.getSelectedPara();
+  if (!(para instanceof HTMLElement)) return;
+  const contents = para.querySelectorAll('.listitemcontent.number') as NodeListOf<HTMLElement>;
 
+  if (!contents.length) return;
+
+  contents.forEach((content) => {
+    content.style.setProperty(
+      'padding-left',             
+      `${this.indentValues}pt`,
+      'important'
+    );
+  });
+}
+
+increasIndent() {
+  this.indentValues += 1;
+  this.applyIndentMove();
+}
+
+decreasIndent() {
+  this.indentValues = Math.max(0, this.indentValues - 1);
+  this.applyIndentMove();
+}
+
+resetIndent() {
+  const para = this.service.getSelectedPara();
+  if (!(para instanceof HTMLElement)) return;
+
+  const contents = para.querySelectorAll(
+    '.listitemcontent.number'
+  ) as NodeListOf<HTMLElement>;
+
+  contents.forEach((content) => {
+    content.style.removeProperty('padding-left');
+  });
+
+  this.indentValues = 0;
+}
+
+  abovePtList: number = 1;
+
+increasePtList() {
+    this.abovePtList += 1;
+    this.service.setAbovePt(this.abovePtList);
+  }
+
+  decreasePtList() {
+    if (this.abovePtList > 0) {
+      this.abovePtList -= 1;
+    } else {
+      this.abovePtList -= 1;
+    }
+
+    this.service.setAbovePt(this.abovePtList);
+  }
+  // below
+  belowPtList: number = 0;
+
+  increaseList() {
+    this.belowPtList += 1;
+    this.service.setBelowPt(this.belowPtList);
+  }
+
+  decreaseList() {
+    if (this.belowPtList > 0) {
+      this.belowPtList -= 1;
+    } else {
+      this.belowPtList -= 1;
+    }
+    this.service.setBelowPt(this.belowPtList);
+  }
 }

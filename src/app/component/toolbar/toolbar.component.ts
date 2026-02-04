@@ -65,6 +65,8 @@ export class ToolbarComponent {
   listclick() {
     this.Toolbar = "list";
     this.service.sendValueFromToolbar(this.Toolbar);
+    this.service.setListMode(true);
+    this.service.setParaMode(false);
 
   }
   insertIcon() {

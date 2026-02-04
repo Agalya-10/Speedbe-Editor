@@ -296,7 +296,39 @@ getSelectePara(): HTMLElement | null {
   }
 
     return (node as HTMLElement).closest('p, div');
-
 }
+// list
+private listModeSource = new BehaviorSubject<boolean>(false);
+listMode$ = this.listModeSource.asObservable();
+
+setListMode(value: boolean) {
+  this.listModeSource.next(value);
+}
+
+
+// list
+private ListabovePtSource = new BehaviorSubject<number>(0);
+  ListabovePt$ = this.ListabovePtSource.asObservable();
+
+  ListsetAbovePt(value: number) {
+    this.ListabovePtSource.next(value);
+  }
+
+  private selectedList: HTMLElement | null = null;
+
+  setSelectedList(para: HTMLElement) {
+    this.selectedList = para;
+  }
+
+  getSelectedList(): HTMLElement | null {
+    return this.selectedList;
+  }
+  //  space below
+  private ListbelowPtSource = new BehaviorSubject<number>(0);
+  ListbelowPt$ = this.ListbelowPtSource.asObservable();
+
+  ListsetBelowPt(value: number) {
+    this.ListbelowPtSource.next(value);
+  }
 
 }

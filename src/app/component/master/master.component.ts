@@ -25,7 +25,7 @@ export class MasterComponent {
   isParaMode: boolean = false;
   selectedPara: HTMLElement | null = null;
   currentpagenumber: number = 0;
-
+  isListMode: boolean = false;
   isfirst = true
 
   constructor(private service: MyServiceService, private api: ApiService, private route: ActivatedRoute, private router: Router) { }
@@ -34,6 +34,7 @@ export class MasterComponent {
     this.togglebar();
     this.lineMode();
     this.paraMode();
+    this.listMode();
     this.routeService();
     this.editorMainPage();
     this.pdfmeasure();
@@ -46,19 +47,24 @@ export class MasterComponent {
     this.listenFontSize();
     this.deletePara();
   }
-
   ngAfterViewInit() {
     document.addEventListener('click', (e) => {
-      if (this.isParaMode) {
+
+      if (this.isListMode) {
+        this.selectList(e);
+      }
+      else if (this.isParaMode) {
         this.selectFullPara(e);
       }
-      if (this.isLineMode) {
+      else if (this.isLineMode) {
         this.selectFullLine(e);
-        return;
-      } else {
+      }
+      else {
         this.onWordSelect(e);
       }
-    }, true);
+
+    });
+
     this.disableWordClick();
     this.paraaboove();
     this.parabelow();
@@ -66,7 +72,10 @@ export class MasterComponent {
     this.listenLetterSpace();
     this.listenWordSpace();
     this.listenIndent();
+    this.listabove();
+    this.listbelow();
   }
+
   lineMode() {
     this.service.lineMode$.subscribe(mode => {
       this.isLineMode = mode;
@@ -77,6 +86,12 @@ export class MasterComponent {
       this.isParaMode = para;
     });
   }
+  listMode() {
+    this.service.listMode$.subscribe(value => {
+      this.isListMode = value;
+    });
+  }
+
   routeService() {
     this.route.queryParamMap.subscribe((data) => {
       this.jobid = data.get('jobid');
@@ -1011,5 +1026,47 @@ export class MasterComponent {
     });
   }
 
+  // List
+  selectList(event: MouseEvent) {
+  if (!this.isListMode) return;
+
+  const list = (event.target as HTMLElement)
+    .closest('.list,.tablelist') as HTMLElement;
+
+  if (!list) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  document.querySelectorAll('.list-selected')
+    .forEach(l => {
+      l.classList.remove('list-selected');
+      (l as HTMLElement).style.backgroundColor = '';
+    });
+
+  list.classList.add('list-selected');
+  list.style.backgroundColor = 'rgb(255, 211, 196)';
+
+  this.selectedPara = list;
+  this.service.setSelectedPara(list);
+}
+  
+
+// spacelist
+listabove() {
+    this.service.ListabovePt$.subscribe(pt => {
+      const para = this.service.getSelectedList();
+      if (!para) return;
+      // para.style.marginTop = `${pt}pt`;
+    });
+  }
+
+  listbelow() {
+    this.service.ListbelowPt$.subscribe(pt => {
+      const para = this.service.getSelectedList();
+      if (!para) return;
+      // para.style.marginBottom = `${pt}pt`;
+    });
+  }
 }
 

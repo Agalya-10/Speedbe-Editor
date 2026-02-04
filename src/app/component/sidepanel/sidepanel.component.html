@@ -307,15 +307,15 @@
                             <div class="d-flex" style="position: relative;">
                                 <label class="mt-1 above1 me-4">Indentation</label>
                                 <div class="ms-2">
-                                    <input class="above ms-2">
+                                    <input class="above ps-3" [value]="indentValues+'pt'"(change)="applyIndentMove()">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p style="color: #959595;width: 7px; height: 7px;">-</p>
-                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;">+</p>
+                                        <p class="" style="color: #959595;width: 7px; height: 7px;" (click)="decreasIndent()">-</p>
+                                        <p class="ps-4  mt-1" style="color: #959595;font-size: 12px;" (click)="increasIndent()">+</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex ms-4" style="position: relative;">
+                            <div class="d-flex ms-4" style="position: relative;" (click)="resetIndent()">
                                 <label class="ms-4 ps-4 mt-1 above1">Reset</label>
                             </div>
 
@@ -331,8 +331,9 @@
                                     <input class="above ms-2">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p style="color: #959595;width: 7px; height: 7px;">-</p>
-                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;">+</p>
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreasePtList()">-</p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ abovePtList }}</div>
+                                        <p class="ps-3 mt-1" style="color: #959595;font-size: 12px;" (click)="increasePtList()">+</p>
                                     </div>
                                 </div>
                             </div>
@@ -342,8 +343,9 @@
                                     <input class="above ms-2">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p style="color: #959595;width: 7px; height: 7px;">-</p>
-                                        <p class="ps-4 ms-2 mt-1" style="color: #959595;font-size: 12px;">+</p>
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseList()">-</p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ belowPtList }}</div>
+                                        <p class="ps-3 mt-1" style="color: #959595;font-size: 12px;" (click)="increaseList()">+</p>
                                     </div>
                                 </div>
                             </div>
@@ -472,12 +474,12 @@
                         </div>
                         <div class="d-flex" style="color: #959595;">
                             <label class="movepara">Merge</label>
-                            <div (click)="movePreviousPara()">
+                            <div>
                                 <i class="material-icons "
                                     style="font-size: 12px;margin-left: 32px;padding-top: 2px;">arrow_back</i><span
                                     style="font-size: 11px;cursor: pointer;">Previous</span>
                             </div>
-                            <div class="d-flex mt-2" (click)="moveNextPara()">
+                            <div class="d-flex mt-2" >
                                 <p style="font-size: 11px;margin-left: 2.32rem;cursor: pointer;">Next</p>
                                 <i class="material-icons-outlined "
                                     style="font-size: 12px;padding-top: 3px;">arrow_forward</i>
@@ -529,14 +531,11 @@
                         <div class="d-flex" style="justify-content: end;">
                             <button style="border: none;background: none;"><span class="material-symbols-outlined"
                                     style="color:#0F50A6;font-size: 24px;">save</span></button>
-                            <button style="border: none;background: none;"><span
+                            <button style="border: none;background: none;" (click)="para()"><span
                                     class="material-symbols-outlined circleicon text-danger"
                                     style="font-size: 24px;">x_circle</span></button>
                         </div>
-
-
-
-                    </div>
+                    </div>  
                 </div>
                 <div class="float">
                     <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
