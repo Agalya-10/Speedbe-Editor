@@ -537,11 +537,175 @@
                         </div>
                     </div>  
                 </div>
-                <div class="float">
+                <div class="float pb-2"[ngClass]="{'five': floatButton}">
                     <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
                         <div class="layouthead">Float</div>
-                        <div class="plus">+</div>
+                        <div class="plus" (click)="float()">+</div>
                     </div>
+                  <div class="line" *ngIf="!floatButton" ></div>
+                    <div class=" px-3 gap-4" *ngIf="!floatButton">
+                         <div class="d-flex">
+                            <div class="">
+                                <label style="margin-right: 18px" class="space">Space</label>
+                            </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1">Above</label>
+                                <div class="ms-2">
+                                    <input class="above ms-1">
+                                    <div class="" style="display: flex;position: absolute;bottom:    0px;top: 2px;">
+                                        <button
+                                            style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
+                                            (click)="decreaseAbove()">-</button>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ flowabovePt }}pt
+                                        </div>
+                                        <button class=" mt-1"
+                                            style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
+                                            (click)="increaseAbove()">+</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="d-flex ms-4" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1">Below</label>
+                                <div class="ms-2">
+                                    <input class="above ms-2">
+                                    <div class="ms-2"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseBelow()">-</p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;cursor: pointer;">
+                                            {{ flowbelowPt }}pt</div>
+                                        <p class="ps-2 mt-1"
+                                            style="color: #959595;font-size: 12px;cursor: pointer;"
+                                            (click)="increaseBelow()">+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex">
+                            <div class="">
+                                <label style="margin-right: 18px" class="space">Move</label>
+                            </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1">Left</label>
+                                <div class="ms-2">
+                                    <input class="above ms-1">
+                                    <div class="" style="display: flex;position: absolute;bottom:    0px;top: 2px;">
+                                        <button
+                                            style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
+                                            (click)="decreaseLeft()">-</button>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ flowLeftPt }}pt
+                                        </div>
+                                        <button class="  mt-1"
+                                            style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
+                                            (click)="increaseLeft()">+</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="d-flex ms-4" style="position: relative;">
+                                <label class="ms-4 ps-2 mt-1 above1">Right</label>
+                                <div class="ms-2">
+                                    <input class="above ms-2">
+                                    <div class="ms-2"
+                                        style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseRight()">-</p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;cursor: pointer;">
+                                            {{ flowRightPt }}pt</div>
+                                        <p class="ps-2  mt-1"
+                                            style="color: #959595;font-size: 12px;cursor: pointer;"
+                                            (click)="increaseRight()">+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex">
+                            <div class="d-flex" style="position: relative;">
+                                <label class="mt-1 moveby">Move by</label>
+                                <div class="">
+                                    <input class="above ">
+                                    <div class="" style="display: flex;position: absolute;bottom:0px;top: 2px;">
+                                        <button
+                                            style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
+                                            (click)="MovebydecreaseAbove()">-</button>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ moveByPt }}pt
+                                        </div>
+                                        <button class=" mb-1"
+                                            style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
+                                            (click)="MovebyincreaseAbove()">+</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                             <div class="d-flex">
+                                <div>
+                            <label class="movetopage me-3 ms-4 ">Move To Page</label>
+                            <select class="select3"  [(ngModel)]="pageNum">
+                                <option *ngFor="let p of pages" [value]="p">{{ p }}</option>
+                                <!-- <option>None</option> -->
+                                <!-- <option  *ngFor="let p of pages" [value]="p"></option>>{{p}}</option> -->
+                                <!-- <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option> -->
+                            </select>
+                            </div>
+                            <div>
+                             <button class="material-symbols-outlined text-secondary fs-6 pt-2 ms-3" style="border: none;background: none;" (click)="applyMove()"> check_circle </button>
+                            </div>
+
+                        </div>
+
+                        </div>
+                            <div class="d-flex" style="position: relative;">
+                                <label class="mt-1 resizefigure">Resize figure</label>
+                                <div class="">
+                                    <input class="resize ">
+                                    <div class="" style="display: flex;position: absolute;bottom:0px;top: 2px;">
+                                        <button
+                                            style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
+                                            (click)="figureSizedecrease()">-</button>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ FigSize }} pt
+                                        </div>
+                                        <button class="  mt-1 ms-1"
+                                            style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
+                                            (click)="figureSizeincrease()">+</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                              <div class="d-flex">
+                            <div class="">
+                                <label style="margin-right: 18px" class="space">Rotate</label>
+                            </div>
+                            <div class="d-flex" (click)="landscape()">
+                                <label class="ms-4 ps-2 mt-1 above1" >Landscape</label>
+                            </div>
+                            <div class="d-flex ms-4" (click)="portrait()">
+                                <label class="ms-4 ps-2 mt-1 above1" >Potrait</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="line"></div>
+
+                    
                 </div>
                 <div class="autopaginate" [ngClass]="{'five': autopaginate}">
                     <div class="d-flex px-3 pb-2" style="justify-content: space-between;">

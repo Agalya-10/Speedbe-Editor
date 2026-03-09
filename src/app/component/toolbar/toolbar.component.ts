@@ -16,15 +16,16 @@ export class ToolbarComponent {
   Toolbar = "none";
   Insertshow = true;
   paginateshow = true;
+  floatbutton = true;
   word = true
   line = false
   para = false
   list = false
+  float = false
 
 
   constructor(private service: MyServiceService) { }
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
@@ -41,9 +42,6 @@ export class ToolbarComponent {
     this.service.enableWordSelection = true;
     this.service.enableLineSelection = false;
     this.service.setLineMode(false);
-
-
-
   }
   lineclick() {
     this.Toolbar = "line";
@@ -51,22 +49,26 @@ export class ToolbarComponent {
     this.service.enableWordSelection = true;
     this.service.enableLineSelection = true;
     this.service.setLineMode(true);
-
-
   }
   paraclick() {
     this.Toolbar = "para";
     this.service.sendValueFromToolbar(this.Toolbar);
     this.service.setLineMode(false);
     this.service.setParaMode(true);
-
-
   }
   listclick() {
     this.Toolbar = "list";
     this.service.sendValueFromToolbar(this.Toolbar);
     this.service.setListMode(true);
     this.service.setParaMode(false);
+  }
+  floatButton() {
+    // this.Toolbar = "float";
+    this.service.sendValueFromFloatmenu(this.floatbutton);
+    this.service.setListMode(false);
+    this.service.setLineMode(false);
+    this.service.setParaMode(false);
+    this.service.enableWordSelection = false;
 
   }
   insertIcon() {
@@ -81,6 +83,7 @@ export class ToolbarComponent {
     this.para = false;
     this.line = false;
     this.list = false;
+    // this.float=false;
 
     switch (event) {
       case 'word':
@@ -95,6 +98,9 @@ export class ToolbarComponent {
       case 'list':
         this.list = true;
         break;
+      // case 'float':
+      // this.float = true;
+      // break;
     }
   }
 

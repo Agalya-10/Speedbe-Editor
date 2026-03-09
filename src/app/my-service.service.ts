@@ -2,18 +2,15 @@ import { Injectable } from '@angular/core';
 import html2pdf from 'html2pdf.js';
 import { BehaviorSubject } from 'rxjs';
 
-// import  html2pdf from 'html2pdf.js';
 export interface HyphenationData {
   hyphenation: string;
   isArticleTitle: boolean;
 }
 export type LineAction = 'next' | 'previous';
-interface IndentPayload {
-  paraId: string;
-  indent: number;
-}
-
-
+// interface IndentPayload {
+//   paraId: string;
+//   indent: number;
+// }
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +69,13 @@ export class MyServiceService {
   sendValueFrompdf(value: any) {
     this.layout.next(value);
   }
+  // Float
+  private float = new BehaviorSubject<any>(null);
+  floatvalue$ = this.float.asObservable();
 
+  sendValueFromFloatmenu(value: any) {
+    this.float.next(value);
+  }
 
 
   downloadPDF() {
@@ -238,7 +241,7 @@ export class MyServiceService {
   }
 
   // edit
- 
+
   // Indentation
   private indentPtSource = new BehaviorSubject<number>(0);
   indentPt$ = this.indentPtSource.asObservable();
@@ -284,30 +287,30 @@ export class MyServiceService {
   deletePara(value: HTMLElement | null) {
     this.deletepara.next(value);
   }
-// Formating para
-getSelectePara(): HTMLElement | null {
-  const selection = window.getSelection();
-  if (!selection || selection.rangeCount === 0) return null;
+  // Formating para
+  getSelectePara(): HTMLElement | null {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return null;
 
-  let node = selection.anchorNode as Node;
+    let node = selection.anchorNode as Node;
 
-  if (node.nodeType === Node.TEXT_NODE) {
-    node = node.parentElement!;
-  }
+    if (node.nodeType === Node.TEXT_NODE) {
+      node = node.parentElement!;
+    }
 
     return (node as HTMLElement).closest('p, div');
-}
-// list
-private listModeSource = new BehaviorSubject<boolean>(false);
-listMode$ = this.listModeSource.asObservable();
+  }
+  // list
+  private listModeSource = new BehaviorSubject<boolean>(false);
+  listMode$ = this.listModeSource.asObservable();
 
-setListMode(value: boolean) {
-  this.listModeSource.next(value);
-}
+  setListMode(value: boolean) {
+    this.listModeSource.next(value);
+  }
 
 
-// list
-private ListabovePtSource = new BehaviorSubject<number>(0);
+  // list
+  private ListabovePtSource = new BehaviorSubject<number>(0);
   ListabovePt$ = this.ListabovePtSource.asObservable();
 
   ListsetAbovePt(value: number) {
@@ -331,4 +334,108 @@ private ListabovePtSource = new BehaviorSubject<number>(0);
     this.ListbelowPtSource.next(value);
   }
 
+
+  // private selectedIdSource = new BehaviorSubject<string | null>(null);
+  // selectedId$ = this.selectedIdSource.asObservable();
+
+  // setSelected(id: string) {
+  //   this.selectedIdSource.next(id);
+  // }
+
+  private floatModeSource = new BehaviorSubject<boolean>(false);
+  floatMode$ = this.floatModeSource.asObservable();
+
+  setFloatMode(value: boolean) {
+    this.floatModeSource.next(value);
+  }
+
+  selectedFloatElement: HTMLElement | null = null;
+
+  setSelectedFloat(el: HTMLElement) {
+    this.selectedFloatElement = el;
+  }
+
+  getSelectedElement() {
+    return this.selectedFloatElement;
+  }
+
+  // Float Space
+  // Selected Element
+  // private selectedElement: HTMLElement | null = null;
+
+  // setSelectedElement(el: HTMLElement) {
+  //   this.selectedElement = el;
+  // }
+
+  // getSelectedElement(): HTMLElement | null {
+  //   return this.selectedElement;
+  // }
+  // Space Above
+  private floatAbovePtSource = new BehaviorSubject<number>(0);
+  FloatabovePt$ = this.floatAbovePtSource.asObservable();
+
+  floatSetAbovePt(value: number) {
+    this.floatAbovePtSource.next(value);
+  }
+
+  // Space Below
+  private floatBelowPtSource = new BehaviorSubject<number>(0);
+  FloatbelowPt$ = this.floatBelowPtSource.asObservable();
+
+  FloatSetBelowPt(value: number) {
+    this.floatBelowPtSource.next(value);
+  }
+
+  // move
+  // left
+  private floatLeftPtSource = new BehaviorSubject<number>(0);
+  FloatLeftPt$ = this.floatLeftPtSource.asObservable();
+
+  FloatSetLeftPt(value: number) {
+    this.floatLeftPtSource.next(value);
+  }
+  // right
+  private floatRightPtSource = new BehaviorSubject<number>(0);
+  FloatRightPt$ = this.floatRightPtSource.asObservable();
+
+  FloatSetRightPt(value: number) {
+    this.floatRightPtSource.next(value);
+  }
+
+  // Move by
+  private movebyAbovePtSource = new BehaviorSubject<number>(0);
+  MovebyabovePt$ = this.movebyAbovePtSource.asObservable();
+
+  moveBySetAbovePt(value: number) {
+    this.movebyAbovePtSource.next(value);
+  }
+  //  Figure Size
+  private FigureSize = new BehaviorSubject<number>(378);
+  figureSizePt$ = this.FigureSize.asObservable();
+
+  figureSizePt(value: number) {
+    this.FigureSize.next(value);
+  }
+
+  // Landscope
+  private rotateSource = new BehaviorSubject<number>(0);
+  rotate$ = this.rotateSource.asObservable();
+
+  setRotate(value: number) {
+    this.rotateSource.next(value);
+  }
+
+  // moveTo Page
+  moveToPage$ = new BehaviorSubject<number>(0);
+
+  moveToPage(pageNum: number) {
+    this.moveToPage$.next(pageNum);
+  }
+  // pagenum
+  pageNumbers$ = new BehaviorSubject<number[]>([]);
+
+  sendPageNumbers(pages: number[]) {
+    this.pageNumbers$.next(pages);
+  }
 }
+

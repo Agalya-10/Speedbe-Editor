@@ -28,6 +28,7 @@ export class MasterComponent {
   isListMode: boolean = false;
   isfirst = true
 
+
   constructor(private service: MyServiceService, private api: ApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -46,6 +47,15 @@ export class MasterComponent {
     this.listenFirstCharPreviousLine();
     this.listenFontSize();
     this.deletePara();
+    this.FloatMode();
+    this.MovebyAboveSpacing();
+    this.FigureSize();
+    this.applyRotate();
+    this.movetopage();
+    // this.Rotate(angle);
+
+
+
   }
   ngAfterViewInit() {
     document.addEventListener('click', (e) => {
@@ -59,11 +69,18 @@ export class MasterComponent {
       else if (this.isLineMode) {
         this.selectFullLine(e);
       }
+
       else {
         this.onWordSelect(e);
       }
 
     });
+    document.addEventListener('click', (e) => {
+      if (this.isFloatMode) {
+        this.selectFloat(e);
+        return;
+      }
+    })
 
     this.disableWordClick();
     this.paraaboove();
@@ -74,6 +91,10 @@ export class MasterComponent {
     this.listenIndent();
     this.listabove();
     this.listbelow();
+    this.applyAboveSpacing();
+    this.applyBelowSpacing();
+    this.applyLeftMove();
+    this.applyRightMove();
   }
 
   lineMode() {
@@ -143,6 +164,8 @@ export class MasterComponent {
     containerpdf.style.setProperty('zoom', '100%');
     setTimeout(() => {
       this.pdfmeasure();
+        this.getPageNumbers();
+
     }, 100);
   }
 
@@ -469,8 +492,6 @@ export class MasterComponent {
         this.mytext = word;
       }
     });
-
-
   }
 
   // line selector
@@ -1028,36 +1049,35 @@ export class MasterComponent {
 
   // List
   selectList(event: MouseEvent) {
-  if (!this.isListMode) return;
+    if (!this.isListMode) return;
 
-  const list = (event.target as HTMLElement)
-    .closest('.list,.tablelist') as HTMLElement;
+    const list = (event.target as HTMLElement)
+      .closest('.list,.tablelist') as HTMLElement;
 
-  if (!list) return;
+    if (!list) return;
 
-  event.preventDefault();
-  event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
 
-  document.querySelectorAll('.list-selected')
-    .forEach(l => {
-      l.classList.remove('list-selected');
-      (l as HTMLElement).style.backgroundColor = '';
-    });
+    document.querySelectorAll('.list-selected')
+      .forEach(l => {
+        l.classList.remove('list-selected');
+        (l as HTMLElement).style.backgroundColor = '';
+      });
 
-  list.classList.add('list-selected');
-  list.style.backgroundColor = 'rgb(255, 211, 196)';
+    list.classList.add('list-selected');
+    list.style.backgroundColor = 'rgb(255, 211, 196)';
 
-  this.selectedPara = list;
-  this.service.setSelectedPara(list);
-}
-  
+    this.selectedPara = list;
+    this.service.setSelectedPara(list);
+  }
 
-// spacelist
-listabove() {
+
+  // spacelist
+  listabove() {
     this.service.ListabovePt$.subscribe(pt => {
       const para = this.service.getSelectedList();
       if (!para) return;
-      // para.style.marginTop = `${pt}pt`;
     });
   }
 
@@ -1065,8 +1085,176 @@ listabove() {
     this.service.ListbelowPt$.subscribe(pt => {
       const para = this.service.getSelectedList();
       if (!para) return;
-      // para.style.marginBottom = `${pt}pt`;
     });
   }
-}
 
+  isFloatMode: boolean = false;
+
+  FloatMode() {
+    this.service.floatMode$.subscribe(value => {
+      this.isFloatMode = value;
+    });
+  }
+  selectFloat(event: MouseEvent) {
+    if (!this.isFloatMode) return;
+
+    const target = event.target as HTMLElement;
+
+    const floatElement =
+      target.closest('.table') ||
+      target.closest('.floatFigure');
+
+    if (!floatElement) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    document.querySelectorAll('.float-selected')
+      .forEach(el => {
+        el.classList.remove('float-selected');
+        (el as HTMLElement).style.backgroundColor = '';
+      });
+
+    floatElement.classList.add('float-selected');
+    (floatElement as HTMLElement).style.backgroundColor = 'rgb(255, 211, 196)';
+
+    this.service.setSelectedFloat(floatElement as HTMLElement);
+  }
+  applyAboveSpacing() {
+    this.service.FloatabovePt$.subscribe(pt => {
+      const el = this.service.getSelectedElement();
+      if (!el) return;
+
+      el.style.paddingTop = pt + 'pt';
+    });
+  }
+
+  applyBelowSpacing() {
+    this.service.FloatbelowPt$.subscribe(pt => {
+      const el = this.service.getSelectedElement();
+      if (!el) return;
+
+      el.style.paddingBottom = pt + 'pt';
+    });
+  }
+  // Move
+  applyLeftMove() {
+    this.service.FloatLeftPt$.subscribe(pt => {
+      const el = this.service.getSelectedElement();
+      if (!el) return;
+
+      el.style.paddingLeft = pt + 'pt';
+    });
+  }
+  applyRightMove() {
+    this.service.FloatRightPt$.subscribe(pt => {
+      const el = this.service.getSelectedElement();
+      if (!el) return;
+
+      el.style.paddingRight = pt + 'pt';
+    });
+  }
+  // Moveby
+  MovebyAboveSpacing() {
+    this.service.MovebyabovePt$.subscribe(pt => {
+      const el = this.service.getSelectedElement();
+      if (!el) return;
+
+      el.style.marginTop = pt + 'pt';
+    });
+  }
+  // Figsize
+  FigureSize() {
+    this.service.figureSizePt$.subscribe(pt => {
+      const el = this.service.getSelectedElement();
+      if (!el) return;
+
+      const img = el.querySelector('img') as HTMLElement;
+
+      if (img) {
+        img.style.width = pt + 'pt';
+      } else {
+        el.style.width = pt + 'pt';
+      }
+    });
+  }
+
+  // landscope
+  applyRotate() {
+    this.service.rotate$.subscribe(deg => {
+      const el = this.service.getSelectedElement();
+      if (!el) return;
+
+      const img = el.querySelector('img') as HTMLElement;
+
+      if (img) {
+        img.style.transform = `rotate(${deg}deg)`;
+        img.style.transformOrigin = 'center';
+      }
+      else {
+        el.style.transform = `rotate(${deg}deg)`;
+        el.style.transformOrigin = 'center';
+      }
+    });
+  }
+
+  moveElementToPage(pageNum: number) {
+
+    const el = this.service.getSelectedElement();
+    if (!el) return;
+
+    const container =
+      el.closest('.floatFigure') ||
+      el.closest('.table') ||
+      el;
+
+    const pages = Array.from(
+      document.querySelectorAll('[data-icodex-page-container]')
+    ) as HTMLElement[];
+
+    const targetPage = pages[pageNum - 1];
+
+    if (!targetPage) return;
+
+    const mainBody = targetPage.querySelector(
+      '[data-icodex-type="mainBodyPage"]'
+    ) as HTMLElement;
+
+    if (!mainBody) return;
+
+    mainBody.appendChild(container as HTMLElement);
+
+  }
+  movetopage() {
+    this.service.moveToPage$.subscribe(pageNum => {
+      if (!pageNum) return;
+      this.moveElementToPage(pageNum);
+
+    });
+  }
+
+  getPageNumbers() {
+  const pages = document.querySelectorAll('[data-icodex-page-container="true"]');
+  const totalPages = pages.length;
+
+  const pageNumbers: number[] = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  this.service.sendPageNumbers(pageNumbers);
+
+}
+// applyMove() {
+//   const pages = document.querySelectorAll('[data-icodex-page-container]');
+//   pages.forEach((page: any, index: number) => {
+//     if ((index + 1) === this.pageNum &&
+//         page.getAttribute('data-icodex-page-container') === 'true') {
+//       const selectedElement = document.querySelector('.selected') as HTMLElement;
+//       if (selectedElement) {
+//         page.appendChild(selectedElement);
+//       }
+//     }
+//   });
+// }
+}

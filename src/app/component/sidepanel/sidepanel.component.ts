@@ -19,6 +19,7 @@ export class SidepanelComponent {
   editcontent = true;
   stylecontent = true;
   autopaginate = false;
+  floatButton = false;
   view = 'default';
   sidemenu = false;
   minas = true;
@@ -46,10 +47,12 @@ export class SidepanelComponent {
     this.Insertminas();
     this.Insertshow();
     this.paginate();
+    this.floatbutton();
     this.layout();
     this.hypanated();
     this.ratio();
     this.ratiolastword();
+    this.pagemove();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -64,18 +67,26 @@ export class SidepanelComponent {
         this.autopaginate = true;
         this.minas = true;
         this.stylecontent = true;
+        this.floatButton = true;
+
       }
       else if (data === "line") {
         this.defaultinfo = false;
         this.line();
+        this.floatButton = true;
+
 
       } else if (data === "para") {
         this.defaultinfo = false;
         this.para();
+        this.floatButton = true;
+
       }
       else if (data === "list") {
         this.defaultinfo = false;
         this.list();
+        this.floatButton = true;
+
       }
     })
   }
@@ -93,6 +104,8 @@ export class SidepanelComponent {
       this.autopaginate = true;
       this.editcontent = true;
       this.minas = false;
+      this.floatButton = true;
+
     })
   }
   paginate() {
@@ -102,8 +115,24 @@ export class SidepanelComponent {
       this.editcontent = true;
       this.minas = true;
       this.stylecontent = true;
+      this.floatButton = true;
+
     })
   }
+  floatbutton() {
+    this.service.floatvalue$.subscribe(response => {
+      this.sidemenu = true;
+      this.autopaginate = true;
+      this.editcontent = true;
+      this.minas = true;
+      this.stylecontent = true;
+      this.floatButton = false;
+      this.service.setFloatMode(true);
+
+    })
+  }
+
+
   // toggle
   Sidebarpanel() {
     this.isCollapsed = !this.isCollapsed;
@@ -121,6 +150,9 @@ export class SidepanelComponent {
   }
   AutopaginatePlus() {
     this.autopaginate = !this.autopaginate;
+  }
+  float() {
+    this.floatButton = !this.floatButton;
   }
   Insertminas() {
     this.minas = !this.minas;
@@ -457,7 +489,6 @@ export class SidepanelComponent {
     } else {
       this.abovept -= 1;
     }
-
     this.service.setAbovePt(this.abovept);
   }
 
@@ -645,52 +676,52 @@ export class SidepanelComponent {
     para.style.setProperty('text-align', type, 'important');
   }
 
-indentValues: number = 6;
+  indentValues: number = 6;
 
-applyIndentMove() {
-  const para = this.service.getSelectedPara();
-  if (!(para instanceof HTMLElement)) return;
-  const contents = para.querySelectorAll('.listitemcontent.number') as NodeListOf<HTMLElement>;
+  applyIndentMove() {
+    const para = this.service.getSelectedPara();
+    if (!(para instanceof HTMLElement)) return;
+    const contents = para.querySelectorAll('.listitemcontent.number') as NodeListOf<HTMLElement>;
 
-  if (!contents.length) return;
+    if (!contents.length) return;
 
-  contents.forEach((content) => {
-    content.style.setProperty(
-      'padding-left',             
-      `${this.indentValues}pt`,
-      'important'
-    );
-  });
-}
+    contents.forEach((content) => {
+      content.style.setProperty(
+        'padding-left',
+        `${this.indentValues}pt`,
+        'important'
+      );
+    });
+  }
 
-increasIndent() {
-  this.indentValues += 1;
-  this.applyIndentMove();
-}
+  increasIndent() {
+    this.indentValues += 1;
+    this.applyIndentMove();
+  }
 
-decreasIndent() {
-  this.indentValues = Math.max(0, this.indentValues - 1);
-  this.applyIndentMove();
-}
+  decreasIndent() {
+    this.indentValues = Math.max(0, this.indentValues - 1);
+    this.applyIndentMove();
+  }
 
-resetIndent() {
-  const para = this.service.getSelectedPara();
-  if (!(para instanceof HTMLElement)) return;
+  resetIndent() {
+    const para = this.service.getSelectedPara();
+    if (!(para instanceof HTMLElement)) return;
 
-  const contents = para.querySelectorAll(
-    '.listitemcontent.number'
-  ) as NodeListOf<HTMLElement>;
+    const contents = para.querySelectorAll(
+      '.listitemcontent.number'
+    ) as NodeListOf<HTMLElement>;
 
-  contents.forEach((content) => {
-    content.style.removeProperty('padding-left');
-  });
+    contents.forEach((content) => {
+      content.style.removeProperty('padding-left');
+    });
 
-  this.indentValues = 0;
-}
+    this.indentValues = 0;
+  }
 
   abovePtList: number = 1;
 
-increasePtList() {
+  increasePtList() {
     this.abovePtList += 1;
     this.service.setAbovePt(this.abovePtList);
   }
@@ -719,5 +750,107 @@ increasePtList() {
       this.belowPtList -= 1;
     }
     this.service.setBelowPt(this.belowPtList);
+  }
+
+
+  flowabovePt: number = 0;
+  flowbelowPt: number = 0;
+  // Above
+  increaseAbove() {
+    this.flowabovePt += 1;
+    this.service.floatSetAbovePt(this.flowabovePt);
+  }
+
+  decreaseAbove() {
+    if (this.flowabovePt > 0) {
+      this.flowabovePt -= 1;
+      this.service.floatSetAbovePt(this.flowabovePt);
+    }
+  }
+
+  // Below
+  increaseBelow() {
+    this.flowbelowPt += 1;
+    this.service.FloatSetBelowPt(this.flowbelowPt);
+  }
+
+  decreaseBelow() {
+    if (this.flowbelowPt > 0) {
+      this.flowbelowPt -= 1;
+      this.service.FloatSetBelowPt(this.flowbelowPt);
+    }
+  }
+
+  flowLeftPt: number = 0;
+
+  increaseLeft() {
+    this.flowLeftPt += 1;
+    this.service.FloatSetLeftPt(this.flowLeftPt);
+  }
+
+  decreaseLeft() {
+    if (this.flowLeftPt > 0) {
+      this.flowLeftPt -= 1;
+      this.service.FloatSetLeftPt(this.flowLeftPt);
+    }
+  }
+  flowRightPt: number = 0;
+
+  increaseRight() {
+    this.flowRightPt += 1;
+    this.service.FloatSetRightPt(this.flowRightPt);
+  }
+
+  decreaseRight() {
+    if (this.flowRightPt > 0) {
+      this.flowRightPt -= 1;
+      this.service.FloatSetRightPt(this.flowRightPt);
+    }
+  }
+
+  moveByPt: number = 0;
+  // Above
+  MovebyincreaseAbove() {
+    this.moveByPt += 1;
+    this.service.moveBySetAbovePt(this.moveByPt);
+  }
+
+  MovebydecreaseAbove() {
+    this.moveByPt -= 1;
+    this.service.moveBySetAbovePt(this.moveByPt);
+  }
+
+  FigSize: number = 378;
+  figureSizeincrease() {
+    this.FigSize += 1;
+    this.service.figureSizePt(this.FigSize);
+  }
+
+  figureSizedecrease() {
+    this.FigSize -= 1;
+    this.service.figureSizePt(this.FigSize);
+  }
+
+  landscape() {
+    this.service.setRotate(90);
+
+  }
+
+  portrait() {
+    this.service.setRotate(0);
+
+  }
+
+  pageNum!: number;
+  pages: number[] = [];
+
+  applyMove() {
+    this.service.moveToPage(this.pageNum);
+  }
+
+  pagemove() {
+    this.service.pageNumbers$.subscribe(data => {
+      this.pages = data;
+    });
   }
 }
