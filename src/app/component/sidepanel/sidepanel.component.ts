@@ -31,7 +31,8 @@ export class SidepanelComponent {
   isfirst = true;
   currentHyphenText: string = '';
   nextPrevious = false;
-  letterSpacingMap: Record<string, number> = {};
+  letterSpacingMap: Record<string, number> = {}; 
+  FloatDetails=false;
 
   constructor(private service: MyServiceService) { }
 
@@ -53,7 +54,15 @@ export class SidepanelComponent {
     this.ratio();
     this.ratiolastword();
     this.pagemove();
-  }
+    // this.Floatdetails();
+      // this.generateFloatDetails();
+      
+
+  
+}
+// ngAfterViewInit() {
+//   this.loadFloats();
+// }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -252,7 +261,6 @@ export class SidepanelComponent {
     if (!size) return '';
     return this.convert(size.width, this.selectedUnit);
   }
-
 
   get gutterSize() {
     return this.firstPageData?.gutter || 0;
@@ -853,4 +861,38 @@ export class SidepanelComponent {
       this.pages = data;
     });
   }
+
+// floatPages: any[] = [];
+
+// loadFloats() {
+
+//   const pages = document.querySelectorAll('#Pageforfloats #pagediv');
+
+//   this.floatPages = [];
+
+//   pages.forEach((page: any) => {
+
+//     const pageBtn = page.querySelector('button[pgnum]');
+//     const pageNo = pageBtn?.getAttribute('pgnum');
+
+//     const floatBtns = page.querySelectorAll('#floatsdiv button[floatid]');
+
+//     let floats: string[] = [];
+
+//     floatBtns.forEach((btn: any) => {
+//       floats.push(btn.getAttribute('floatid'));
+//     });
+
+//     this.floatPages.push({
+//       pageNo: pageNo,
+//       floats: floats
+//     });
+
+//   });
+
+//   console.log("floatPages:", this.floatPages);
+// }
+//  Floatdetails() {
+//     this.FloatDetails = !this.FloatDetails;
+//   }
 }

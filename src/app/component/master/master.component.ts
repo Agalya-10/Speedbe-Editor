@@ -1105,7 +1105,7 @@ export class MasterComponent {
       target.closest('.floatFigure');
 
     if (!floatElement) return;
-
+4
     event.preventDefault();
     event.stopPropagation();
 
@@ -1200,31 +1200,35 @@ export class MasterComponent {
 
   moveElementToPage(pageNum: number) {
 
-    const el = this.service.getSelectedElement();
-    if (!el) return;
+  const el = this.service.getSelectedElement();
+  if (!el) return;
 
-    const container =
-      el.closest('.floatFigure') ||
-      el.closest('.table') ||
-      el;
+  const container =
+    el.closest('.floatFigure') ||
+    el.closest('.table') ||
+    el;
 
-    const pages = Array.from(
-      document.querySelectorAll('[data-icodex-page-container]')
-    ) as HTMLElement[];
+  const pages = Array.from(
+    document.querySelectorAll('[data-icodex-page-container]')
+  ) as HTMLElement[];
 
-    const targetPage = pages[pageNum - 1];
+  const validPages = pages.filter(
+    page => page.getAttribute('data-icodex-page-container') === 'true'
+  );
 
-    if (!targetPage) return;
+  const targetPage = validPages[pageNum - 1];
 
-    const mainBody = targetPage.querySelector(
-      '[data-icodex-type="mainBodyPage"]'
-    ) as HTMLElement;
+  if (!targetPage) return;
 
-    if (!mainBody) return;
+  const mainBody = targetPage.querySelector(
+    '[data-icodex-type="mainBodyPage"]'
+  ) as HTMLElement;
 
-    mainBody.appendChild(container as HTMLElement);
+  if (!mainBody) return;
 
-  }
+  mainBody.appendChild(container as HTMLElement);
+
+}
   movetopage() {
     this.service.moveToPage$.subscribe(pageNum => {
       if (!pageNum) return;
@@ -1233,28 +1237,27 @@ export class MasterComponent {
     });
   }
 
-  getPageNumbers() {
-  const pages = document.querySelectorAll('[data-icodex-page-container="true"]');
-  const totalPages = pages.length;
+getPageNumbers() {
+
+  const pages = Array.from(
+    document.querySelectorAll('[data-icodex-page-container]')
+  ) as HTMLElement[];
 
   const pageNumbers: number[] = [];
+  let count = 1;
 
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+  pages.forEach(page => {
+
+    const isNormalPage = page.getAttribute('data-icodex-page-container');
+
+    if (isNormalPage === 'true') {
+      pageNumbers.push(count);
+      count++;
+    }
+  });
+
   this.service.sendPageNumbers(pageNumbers);
 
 }
-// applyMove() {
-//   const pages = document.querySelectorAll('[data-icodex-page-container]');
-//   pages.forEach((page: any, index: number) => {
-//     if ((index + 1) === this.pageNum &&
-//         page.getAttribute('data-icodex-page-container') === 'true') {
-//       const selectedElement = document.querySelector('.selected') as HTMLElement;
-//       if (selectedElement) {
-//         page.appendChild(selectedElement);
-//       }
-//     }
-//   });
-// }
+
 }

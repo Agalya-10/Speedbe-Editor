@@ -307,11 +307,13 @@
                             <div class="d-flex" style="position: relative;">
                                 <label class="mt-1 above1 me-4">Indentation</label>
                                 <div class="ms-2">
-                                    <input class="above ps-3" [value]="indentValues+'pt'"(change)="applyIndentMove()">
+                                    <input class="above ps-3" [value]="indentValues+'pt'" (change)="applyIndentMove()">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p class="" style="color: #959595;width: 7px; height: 7px;" (click)="decreasIndent()">-</p>
-                                        <p class="ps-4  mt-1" style="color: #959595;font-size: 12px;" (click)="increasIndent()">+</p>
+                                        <p class="" style="color: #959595;width: 7px; height: 7px;"
+                                            (click)="decreasIndent()">-</p>
+                                        <p class="ps-4  mt-1" style="color: #959595;font-size: 12px;"
+                                            (click)="increasIndent()">+</p>
                                     </div>
                                 </div>
                             </div>
@@ -331,9 +333,12 @@
                                     <input class="above ms-2">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreasePtList()">-</p>
-                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ abovePtList }}</div>
-                                        <p class="ps-3 mt-1" style="color: #959595;font-size: 12px;" (click)="increasePtList()">+</p>
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreasePtList()">-
+                                        </p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ abovePtList }}
+                                        </div>
+                                        <p class="ps-3 mt-1" style="color: #959595;font-size: 12px;"
+                                            (click)="increasePtList()">+</p>
                                     </div>
                                 </div>
                             </div>
@@ -343,9 +348,12 @@
                                     <input class="above ms-2">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseList()">-</p>
-                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ belowPtList }}</div>
-                                        <p class="ps-3 mt-1" style="color: #959595;font-size: 12px;" (click)="increaseList()">+</p>
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseList()">-
+                                        </p>
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ belowPtList }}
+                                        </div>
+                                        <p class="ps-3 mt-1" style="color: #959595;font-size: 12px;"
+                                            (click)="increaseList()">+</p>
                                     </div>
                                 </div>
                             </div>
@@ -479,7 +487,7 @@
                                     style="font-size: 12px;margin-left: 32px;padding-top: 2px;">arrow_back</i><span
                                     style="font-size: 11px;cursor: pointer;">Previous</span>
                             </div>
-                            <div class="d-flex mt-2" >
+                            <div class="d-flex mt-2">
                                 <p style="font-size: 11px;margin-left: 2.32rem;cursor: pointer;">Next</p>
                                 <i class="material-icons-outlined "
                                     style="font-size: 12px;padding-top: 3px;">arrow_forward</i>
@@ -535,16 +543,16 @@
                                     class="material-symbols-outlined circleicon text-danger"
                                     style="font-size: 24px;">x_circle</span></button>
                         </div>
-                    </div>  
+                    </div>
                 </div>
-                <div class="float pb-2"[ngClass]="{'five': floatButton}">
+                <div class="float pb-2" [ngClass]="{'five': floatButton}">
                     <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
                         <div class="layouthead">Float</div>
                         <div class="plus" (click)="float()">+</div>
                     </div>
-                  <div class="line" *ngIf="!floatButton" ></div>
+                    <div class="line" *ngIf="!floatButton"></div>
                     <div class=" px-3 gap-4" *ngIf="!floatButton">
-                         <div class="d-flex">
+                        <div class="d-flex">
                             <div class="">
                                 <label style="margin-right: 18px" class="space">Space</label>
                             </div>
@@ -556,7 +564,8 @@
                                         <button
                                             style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
                                             (click)="decreaseAbove()">-</button>
-                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ flowabovePt }}pt
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ flowabovePt
+                                            }}pt
                                         </div>
                                         <button class=" mt-1"
                                             style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
@@ -571,11 +580,11 @@
                                     <input class="above ms-2">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseBelow()">-</p>
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseBelow()">-
+                                        </p>
                                         <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;cursor: pointer;">
                                             {{ flowbelowPt }}pt</div>
-                                        <p class="ps-2 mt-1"
-                                            style="color: #959595;font-size: 12px;cursor: pointer;"
+                                        <p class="ps-2 mt-1" style="color: #959595;font-size: 12px;cursor: pointer;"
                                             (click)="increaseBelow()">+</p>
                                     </div>
                                 </div>
@@ -594,7 +603,8 @@
                                         <button
                                             style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
                                             (click)="decreaseLeft()">-</button>
-                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ flowLeftPt }}pt
+                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ flowLeftPt
+                                            }}pt
                                         </div>
                                         <button class="  mt-1"
                                             style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
@@ -609,11 +619,11 @@
                                     <input class="above ms-2">
                                     <div class="ms-2"
                                         style="display: flex;justify-content: space-between;position: absolute;bottom: 10px;top: 2px;">
-                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseRight()">-</p>
+                                        <p style="color: #959595;width: 7px; height: 7px;" (click)="decreaseRight()">-
+                                        </p>
                                         <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;cursor: pointer;">
                                             {{ flowRightPt }}pt</div>
-                                        <p class="ps-2  mt-1"
-                                            style="color: #959595;font-size: 12px;cursor: pointer;"
+                                        <p class="ps-2  mt-1" style="color: #959595;font-size: 12px;cursor: pointer;"
                                             (click)="increaseRight()">+</p>
                                     </div>
                                 </div>
@@ -638,74 +648,89 @@
 
                                 </div>
                             </div>
-                             <div class="d-flex">
+                            <div class="d-flex">
                                 <div>
-                            <label class="movetopage me-3 ms-4 ">Move To Page</label>
-                            <select class="select3"  [(ngModel)]="pageNum">
-                                <option *ngFor="let p of pages" [value]="p">{{ p }}</option>
-                                <!-- <option>None</option> -->
-                                <!-- <option  *ngFor="let p of pages" [value]="p"></option>>{{p}}</option> -->
-                                <!-- <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                                <option>11</option>
-                                <option>12</option>
-                                <option>13</option>
-                                <option>14</option>
-                                <option>15</option>
-                                <option>16</option>
-                                <option>17</option>
-                                <option>18</option>
-                                <option>19</option>
-                                <option>20</option> -->
-                            </select>
-                            </div>
-                            <div>
-                             <button class="material-symbols-outlined text-secondary fs-6 pt-2 ms-3" style="border: none;background: none;" (click)="applyMove()"> check_circle </button>
-                            </div>
-
-                        </div>
-
-                        </div>
-                            <div class="d-flex" style="position: relative;">
-                                <label class="mt-1 resizefigure">Resize figure</label>
-                                <div class="">
-                                    <input class="resize ">
-                                    <div class="" style="display: flex;position: absolute;bottom:0px;top: 2px;">
-                                        <button
-                                            style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
-                                            (click)="figureSizedecrease()">-</button>
-                                        <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ FigSize }} pt
-                                        </div>
-                                        <button class="  mt-1 ms-1"
-                                            style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
-                                            (click)="figureSizeincrease()">+</button>
-                                    </div>
-
+                                    <label class="movetopage me-3 ms-4 ">Move To Page</label>
+                                    <select class="select3" [(ngModel)]="pageNum">
+                                        <option *ngFor="let p of pages" [value]="p">{{ p }}</option>
+                                    </select>
                                 </div>
+                                <div>
+                                    <button class="material-symbols-outlined text-secondary fs-6 pt-2 ms-3"
+                                        style="border: none;background: none;" (click)="applyMove()"> check_circle
+                                    </button>
+                                </div>
+
                             </div>
-                              <div class="d-flex">
+
+                        </div>
+                        <div class="d-flex" style="position: relative;">
+                            <label class="mt-1 resizefigure">Resize figure</label>
+                            <div class="">
+                                <input class="resize ">
+                                <div class="" style="display: flex;position: absolute;bottom:0px;top: 2px;">
+                                    <button
+                                        style="color: #959595;width: 7px; height: 7px;border: none;background: none;"
+                                        (click)="figureSizedecrease()">-</button>
+                                    <div class="mt-1 ms-2" style="font-size: 10px;color: #959595;">{{ FigSize }} pt
+                                    </div>
+                                    <button class="  mt-1 ms-1"
+                                        style="color: #959595;font-size: 12px;border: none;background: none;overflow: hidden;"
+                                        (click)="figureSizeincrease()">+</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="d-flex">
                             <div class="">
                                 <label style="margin-right: 18px" class="space">Rotate</label>
                             </div>
                             <div class="d-flex" (click)="landscape()">
-                                <label class="ms-4 ps-2 mt-1 above1" >Landscape</label>
+                                <label class="ms-4 ps-2 mt-1 above1">Landscape</label>
                             </div>
                             <div class="d-flex ms-4" (click)="portrait()">
-                                <label class="ms-4 ps-2 mt-1 above1" >Potrait</label>
+                                <label class="ms-4 ps-2 mt-1 above1">Potrait</label>
                             </div>
-
                         </div>
                     </div>
                     <div class="line"></div>
+                    <div *ngIf="!floatButton">
+                        <div class="d-flex px-3 mt-2">
+                            <div class="layouthead1 ">Float Details</div>
+                            <i class="material-symbols-outlined marginsFloat "> expand_less </i>
+                        </div>
 
-                    
+                        <div class="float-details">
+                            <!-- <div>dfgh</div>
+
+                            <div *ngFor="let page of floatPages">
+
+  <button class="page-btn">
+    Page {{page.pageNo}}
+  </button>
+
+  <div class="float-list">
+
+    <label *ngIf="page.floats.length === 0">
+      No Float
+    </label>
+
+    <label *ngFor="let f of page.floats">
+      {{f}}
+    </label>
+
+  </div>
+
+</div> -->
+                            <!-- <div>Page 1</div>
+                            <div>Page 1</div>
+                            <div>Page 1</div>
+                            <div>Page 1</div>
+                            <div>Page 1</div>
+                            <div>Page 1</div> -->
+
+                        </div>
+                    </div>
                 </div>
                 <div class="autopaginate" [ngClass]="{'five': autopaginate}">
                     <div class="d-flex px-3 pb-2" style="justify-content: space-between;">
